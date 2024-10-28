@@ -39,7 +39,7 @@
                   <p style="text-align:center">
                     <name>Weiqi Zhang | 张伟琪</name>
                   </p>
-                  <p>I am currently a first-year Master student (since fall, 2023) majoring in Software Engineering in
+                  <p>I am currently a second-year Master student (since fall, 2023) majoring in Software Engineering in
                     <a href="https://www.thss.tsinghua.edu.cn/">School of Software</a>, <a
                       href="https://www.tsinghua.edu.cn/">Tsinghua University</a>, supversied by Prof. <a
                       href="https://yushen-liu.github.io/">Yu-Shen Liu</a>.
@@ -70,7 +70,11 @@
               <tr>
                 <td style="padding:20px;width:100%;vertical-align:middle">
                   <heading>News</heading>
+                  
                   <ul>
+                    <li><strong>09/2024:</strong> Our paper <a href='https://junshengzhou.github.io/DiffGS/'>DiffGS</a> and <a href='https://takeshie.github.io/MultiPull/'>MultiPull</a> are
+                    accepted to <b>NeurIPS 2024.</b>
+                  </li>
                     <li><strong>03/2024:</strong> Our paper <a
                         href='https://weiqi-zhang.github.io/UDiFF/'>UDiFF</a> on open surface generation got
                       accepted to <b>CVPR 2024.</b>
@@ -93,6 +97,106 @@
                 <td style="padding:20px;width:100%;vertical-align:middle">
                   <heading>Research</heading>
                   <p>(<strong>*</strong> Equal Contribution)</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+            <tbody>
+              <tr onmouseout="DiffGS_stop()" onmouseover="DiffGS_start()">
+                <td width="28%">
+                  <div class="one">
+                    <div class="two" id="DIFFGS" style="opacity: 0;">
+                      <video width="225" muted="" autoplay="" loop="">
+                        <source src="media/Video_DiffGS_after.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                    <img src="media/DiffGS_before.png" width="225" , height="120">
+
+                  </div>
+
+                  <script type="text/javascript">
+                    function DiffGS_start() {
+                      document.getElementById('DIFFGS').style.opacity = "1";
+                    }
+                    function DiffGS_stop() {
+                      document.getElementById('DIFFGS').style.opacity = "0";
+                    }
+                    UDiFF_stop()
+                  </script>
+                </td>
+
+                <td width="65%" valign="top">
+                  <a href="https://junshengzhou.github.io/DiffGS/">
+                    <papertitle>DiffGS: Functional Gaussian Splatting Diffusion
+                    </papertitle>
+                  </a>
+                  <br>
+                  <a href="https://junshengzhou.github.io/"> Junsheng zhou*</a>, 
+                  <strong>Weiqi Zhang*</strong>, 
+                  <a href="https://yushen-liu.github.io/"> Yu-Shen Liu</a>,
+                  <br>
+                  <em>Conference on Neural Information Processing Systems <b> (NeurIPS)</b></em>, 2024 
+                  <br>
+                  <a href="https://junshengzhou.github.io/DiffGS/">project page</a> |
+                  <a href="https://arxiv.org/abs/2410.19657">arXiv</a> |
+                  <a href="https://github.com/weiqi-zhang/DiffGS">code</a>
+                  <p align="justify" , style="font-size:13px">DiffGS is a powerful and efficient 3D generative model capable of generating Gaussian primitives in arbitrary numbers, with a functional disentanglement of Gaussian Splatting. 
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+            <tbody>
+              <tr onmouseout="MultiPull_stop()" onmouseover="MultiPull_start()">
+                <td width="28%">
+                  <div class="one">
+                    <div class="two" id="MultiPull" style="opacity: 0;">
+                      <video width="225" muted="" autoplay="" loop="">
+                        <source src="media/Video_MultiPull_after.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                    <img src="media/MultiPull_before.png" width="225" , height="120">
+
+                  </div>
+
+                  <script type="text/javascript">
+                    function MultiPull_start() {
+                      document.getElementById('MultiPull').style.opacity = "1";
+                    }
+                    function MultiPull_stop() {
+                      document.getElementById('MultiPull').style.opacity = "0";
+                    }
+                    UDiFF_stop()
+                  </script>
+                </td>
+
+                <td width="65%" valign="top">
+                  <a href="https://takeshie.github.io/MultiPull/">
+                    <papertitle>MultiPull: Detailing Signed Distance Functions by
+                      Pulling Multi-Level Queries at Multi-Step
+                    </papertitle>
+                  </a>
+                  <br>
+                   Takeshi Noda*, 
+                  <a href="https://chenchao15.github.io/"> Chao Chen*</a>,
+                  <strong>Weiqi Zhang*</strong>, 
+                  Xinhai Liu,
+                  <a href="https://yushen-liu.github.io/"> Yu-Shen Liu</a>,
+                  <a href="https://h312h.github.io/"> Zhizhong han</a>
+                  <br>
+                  <em>Conference on Neural Information Processing Systems <b> (NeurIPS)</b></em>, 2024 
+                  <br>
+                  <a href="https://takeshie.github.io/MultiPull/">project page</a> |
+                  <a href="">arXiv</a> |
+                  <a href="https://github.com/takeshie/MultiPull">code</a>
+                  <p align="justify" , style="font-size:13px">MultiPull is a novel method that improves 3D surface reconstruction from point clouds by optimizing multi-scale implicit fields and leveraging frequency features. 
+                  </p>
                 </td>
               </tr>
             </tbody>
@@ -132,8 +236,8 @@
                   <br>
                   <a href="https://junshengzhou.github.io/"> Junsheng zhou*</a>, 
                   <strong>Weiqi Zhang*</strong>,
-                  <a href="https://yushen-liu.github.io/"> Baorui Ma</a>, 
-                  <a href="https://mabaorui.github.io/"> Yu-Shen Liu</a>,
+                  <a href="https://mabaorui.github.io/"> Baorui Ma</a>,
+                  <a href="https://yushen-liu.github.io/"> Yu-Shen Liu</a>,
                   <a href="https://dblp.org/pid/261/1098.html/"> Kanle Shi</a>,
                   <a href="https://h312h.github.io/"> Zhizhong han</a>
                   <br>
@@ -212,7 +316,7 @@
                       <font size="2">this awesome website</font>
                     </a>
                     <br>
-                    Last updated: Jan 2024
+                    Last updated: Oct 2024
                     <br>
 
                   </font>
