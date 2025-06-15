@@ -45,9 +45,7 @@
                       href="https://yushen-liu.github.io/">Yu-Shen Liu</a>.
                   </p>
                   <p>
-                    My research interests lie in the area of 3D computer vision and grapics, especially in 3D
-                    reconstruction, multi-view 3D reconstruction, generative models and and surface reconstruction from
-                    point clouds.
+                    My research interests lie in the area of 3D computer vision and grapics, especially in generative models and 3D reconstruction.
                   </p>
                   <p style="text-align:center">
                     <a href="mailto:zwq23@mails.tsinghua.edu.cn">Email</a> &nbsp/&nbsp
@@ -72,12 +70,12 @@
                   <heading>News</heading>
                   
                   <ul>
-                    <li><strong>09/2024:</strong> Our paper <a href='https://junshengzhou.github.io/DiffGS/'>DiffGS</a> and <a href='https://takeshie.github.io/MultiPull/'>MultiPull</a> are
-                    accepted to <b>NeurIPS 2024.</b>
+                    <li><strong>02/2025:</strong> Our paper <a href='https://takeshie.github.io/Bijective-SDF/'>Bijective-SDF</a> got accepted to <b>CVPR 2025.</b>
+                    </li>
+                    <li><strong>09/2024:</strong> Our papers <a href='https://junshengzhou.github.io/DiffGS/'>DiffGS</a> and <a href='https://takeshie.github.io/MultiPull/'>MultiPull</a> are accepted to <b>NeurIPS 2024.</b>
                   </li>
                     <li><strong>03/2024:</strong> Our paper <a
-                        href='https://weiqi-zhang.github.io/UDiFF/'>UDiFF</a> on open surface generation got
-                      accepted to <b>CVPR 2024.</b>
+                        href='https://weiqi-zhang.github.io/UDiFF/'>UDiFF</a> on open surface generation got accepted to <b>CVPR 2024.</b>
                     </li>
                     <li><strong>09/2023:</strong> Started master journey at <a
                         href="https://www.tsinghua.edu.cn/">Tsinghua University</a>.
@@ -97,6 +95,56 @@
                 <td style="padding:20px;width:100%;vertical-align:middle">
                   <heading>Research</heading>
                   <p>(<strong>*</strong> Equal Contribution)</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+            <tbody>
+              <tr onmouseout="Bijective_stop()" onmouseover="Bijective_start()">
+                <td width="28%">
+                  <div class="one">
+                    <div class="two" id="Bijective" style="opacity: 0;">
+                      <video width="225" muted="" autoplay="" loop="">
+                        <source src="media/Video_Bijective_after.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                    <img src="media/Bijective_before.png" width="225" , height="120">
+                  </div>
+
+                  <script type="text/javascript">
+                    function Bijective_start() {
+                      document.getElementById('Bijective').style.opacity = "1";
+                    }
+                    function Bijective_stop() {
+                      document.getElementById('Bijective').style.opacity = "0";
+                    }
+                    Bijective_stop()
+                  </script>
+                </td>
+
+                <td width="65%" valign="top">
+                  <a href="https://takeshie.github.io/Bijective-SDF/">
+                    <papertitle>Learning Bijective Surface Parameterization for Inferring Signed Distance Functions from Sparse Point Clouds with Grid Deformation
+                    </papertitle>
+                  </a>
+                  <br>
+                   Takeshi Noda*, 
+                  <a href="https://chenchao15.github.io/"> Chao Chen*</a>,
+                  <a href="https://junshengzhou.github.io/"> Junsheng Zhou</a>,
+                  <strong>Weiqi Zhang</strong>, 
+                  <a href="https://yushen-liu.github.io/"> Yu-Shen Liu</a>,
+                  <a href="https://h312h.github.io/"> Zhizhong han</a>
+                  <br>
+                  <em>IEEE/CVF Conference on Computer Vision and Pattern Recognition <b> (CVPR)</b></em>, 2025 
+                  <br>
+                  <a href="https://takeshie.github.io/Bijective-SDF/">project page</a> |
+                  <a href="https://arxiv.org/abs/2503.23670">arXiv</a> |
+                  <a href="https://takeshie.github.io/Bijective-SDF/">code</a>
+                  <p align="justify" , style="font-size:13px">Bijective-SDF improves 3D surface reconstruction from sparse point clouds by learning bijective surface parameterization and optimizing grid deformation.
+                  </p>
                 </td>
               </tr>
             </tbody>
@@ -124,7 +172,7 @@
                     function DiffGS_stop() {
                       document.getElementById('DIFFGS').style.opacity = "0";
                     }
-                    UDiFF_stop()
+                    DiffGS_stop()
                   </script>
                 </td>
 
@@ -172,7 +220,7 @@
                     function MultiPull_stop() {
                       document.getElementById('MultiPull').style.opacity = "0";
                     }
-                    UDiFF_stop()
+                    MultiPull_stop()
                   </script>
                 </td>
 
@@ -316,7 +364,7 @@
                       <font size="2">this awesome website</font>
                     </a>
                     <br>
-                    Last updated: Oct 2024
+                    Last updated: March 2025
                     <br>
 
                   </font>
