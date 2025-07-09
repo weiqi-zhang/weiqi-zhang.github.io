@@ -45,7 +45,7 @@
                       href="https://yushen-liu.github.io/">Yu-Shen Liu</a>.
                   </p>
                   <p>
-                    My research interests lie in the area of 3D computer vision and grapics, especially in generative models and 3D reconstruction.
+                    My research interests lie in the area of 3D computer vision and grapics, including 3D reconstruction, generative models and 3D foundation models.
                   </p>
                   <p style="text-align:center">
                     <a href="mailto:zwq23@mails.tsinghua.edu.cn">Email</a> &nbsp/&nbsp
@@ -55,8 +55,8 @@
                   </p>
                 </td>
                 <td style="padding:2.5%;width:40%;max-width:40%">
-                  <a href="media/profile.png"><img style="width:90%;max-width:100%" alt="profile photo"
-                      src="media/profile.png" class="hoverZoomLink"></a>
+                  <a href="media/profile_g.png"><img style="width:90%;max-width:100%" alt="profile photo"
+                      src="media/profile_g.png" class="hoverZoomLink"></a>
                 </td>
               </tr>
             </tbody>
@@ -70,6 +70,8 @@
                   <heading>News</heading>
                   
                   <ul>
+                    <li><strong>06/2025:</strong> Our paper <a href='https://weiqi-zhang.github.io/GAP/'>GAP</a> got accepted to <b>ICCV 2025.</b>
+                    </li>
                     <li><strong>02/2025:</strong> Our paper <a href='https://takeshie.github.io/Bijective-SDF/'>Bijective-SDF</a> got accepted to <b>CVPR 2025.</b>
                     </li>
                     <li><strong>09/2024:</strong> Our papers <a href='https://junshengzhou.github.io/DiffGS/'>DiffGS</a> and <a href='https://takeshie.github.io/MultiPull/'>MultiPull</a> are accepted to <b>NeurIPS 2024.</b>
@@ -95,6 +97,56 @@
                 <td style="padding:20px;width:100%;vertical-align:middle">
                   <heading>Research</heading>
                   <p>(<strong>*</strong> Equal Contribution)</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+            <tbody>
+              <tr onmouseout="GAP_stop()" onmouseover="GAP_start()">
+                <td width="28%">
+                  <div class="one">
+                    <div class="two" id="GAP" style="opacity: 0;">
+                      <video width="225" muted="" autoplay="" loop="">
+                        <source src="media/Video_GAP_after.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                    <img src="media/GAP_before.png" width="225" , height="120">
+                  </div>
+
+                  <script type="text/javascript">
+                    function GAP_start() {
+                      document.getElementById('GAP').style.opacity = "1";
+                    }
+                    function GAP_stop() {
+                      document.getElementById('GAP').style.opacity = "0";
+                    }
+                    Bijective_stop()
+                  </script>
+                </td>
+
+                <td width="65%" valign="top">
+                  <a href="https://weiqi-zhang.github.io/GAP/">
+                    <papertitle>GAP: Gaussianize Any Point Clouds with Text Guidance
+                    </papertitle>
+                  </a>
+                  <br>
+                  <strong>Weiqi Zhang*</strong>,
+                  <a href="https://junshengzhou.github.io/"> Junsheng Zhou*</a>,
+                  <a href="https://github.com/mts246"> Haotian Geng*</a>,
+                  <a href="https://wen-yuan-zhang.github.io/"> Wenyuan Zhang</a>,
+                  <a href="https://yushen-liu.github.io/"> Yu-Shen Liu</a>,
+
+                  <br>
+                  <em>IEEE/CVF International Conference on Computer Vision, <b> (ICCV)</b></em>, 2025 
+                  <br>
+                  <a href="https://weiqi-zhang.github.io/GAP/">project page</a> |
+                  <a href="">arXiv</a> |
+                  <a href="https://github.com/weiqi-zhang/GAP/">code</a>
+                  <p align="justify" , style="font-size:13px">GAP gaussianizes raw point clouds into high-fidelity 3D Gaussians with text guidance via depth-aware diffusion and surface-anchored optimization.
+                  </p>
                 </td>
               </tr>
             </tbody>
@@ -364,7 +416,7 @@
                       <font size="2">this awesome website</font>
                     </a>
                     <br>
-                    Last updated: March 2025
+                    Last updated: July 2025
                     <br>
 
                   </font>
