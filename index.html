@@ -111,6 +111,51 @@
 
           <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
             <tbody>
+              <tr onmouseout="gaussiangrow_stop()" onmouseover="gaussiangrow_start()">
+                <td width="28%">
+                  <div class="one">
+                    <div class="two" id="gaussiangrow" style="opacity: 0;">
+                      <video width="225" muted="" autoplay="" loop="">
+                        <source src="media/Video_gaussiangrow_after.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                    <img src="media/gaussiangrow_before.png" width="225">
+                  </div>
+
+                  <script type="text/javascript">
+                    function gaussiangrow_start() {
+                      document.getElementById('gaussiangrow').style.opacity = "1";
+                    }
+                    function gaussiangrow_stop() {
+                      document.getElementById('gaussiangrow').style.opacity = "0";
+                    }
+                    gaussiangrow_stop()
+                  </script>
+                </td>
+
+                <td width="65%" valign="top">
+                  <a href="">
+                    <papertitle>GaussianGrow: Geometry-aware Gaussian Growing from 3D Point Clouds with Text Guidance</papertitle>
+                  </a>
+                  <br>
+                  <strong>Weiqi Zhang*</strong>, <a href="https://junshengzhou.github.io/">Junsheng Zhou*</a>, <a href="">Haotian Geng</a>, <a href="">Kanle Shi</a>, <a href="">Shenkun Xu</a>,
+                  <a href="http://mmvc.engineering.nyu.edu/">Yi Fang</a>, <a href="https://yushen-liu.github.io/">Yu-Shen Liu</a>
+                  <br>
+                  <em>IEEE/CVF Conference on Computer Vision and Pattern Recognition <b>(CVPR)</b></em>, 2026
+                  <br>
+                  <a href="">project page</a> |
+                  <a href="">arXiv</a> |
+                  <a href="">code</a>
+                  <p align="justify" style="font-size:13px">A geometry-aware framework that grows 3D Gaussians from point clouds with text guidance for controllable 3D generation.
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+            <tbody>
               <tr onmouseout="udfstudio_stop()" onmouseover="udfstudio_start()">
                 <td width="28%">
                   <div class="one">
