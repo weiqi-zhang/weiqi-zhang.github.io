@@ -55,7 +55,7 @@
                   </p>
                 </td>
                 <td style="padding:2.5%;width:40%;max-width:40%">
-                  <a href="media/profile_g.png"><img style="width:90%;max-width:100%;max-height:250px;object-fit:cover;" alt="profile photo"
+                  <a href="media/profile_g.png"><img style="width:90%;max-width:100%;max-height:220px;object-fit:cover;" alt="profile photo"
                       src="media/profile_g.png" class="hoverZoomLink"></a>
                 </td>
               </tr>
@@ -70,7 +70,10 @@
                   <heading>News</heading>
                   
                   <ul>
-                    <li><strong>02/2026:</strong> Our papers <a href='https://weiqi-zhang.github.io'>GaussianGrow</a> (Point Cloud Conditioned Gaussian Generating) and <a href='https://weiqi-zhang.github.io'>MoRe</a> (feedforward 4d reconstruction) got accepted to <b>CVPR 2026.</b>
+                    
+                    <li><strong>02/2026:</strong> Two papers <a href='https://weiqi-zhang.github.io'>GaussianGrow</a> and <a href='https://weiqi-zhang.github.io'>MoRe</a> got accepted to <b>CVPR 2026.</b>
+                    </li>
+                    <li><strong>02/2026:</strong> Our paper UDFStudio on large-scale UDF generation got accepted to <b>TPAMI 2026.</b>
                     </li>
                     <li><strong>09/2025:</strong> Our paper <a href='https://wen-yuan-zhang.github.io/MaterialRefGS/'>MaterialRefGS</a> got accepted to <b>NeurIPS 2025.</b>
                     </li>
@@ -101,6 +104,92 @@
                 <td style="padding:20px;width:100%;vertical-align:middle">
                   <heading>Research</heading>
                   <p>(<strong>*</strong> Equal Contribution)</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+            <tbody>
+              <tr onmouseout="udfstudio_stop()" onmouseover="udfstudio_start()">
+                <td width="28%">
+                  <div class="one">
+                    <div class="two" id="udfstudio" style="opacity: 0;">
+                      <img src="media/udfstudio_after.png" width="225">
+                    </div>
+                    <img src="media/udfstudio_before.png" width="225">
+                  </div>
+                  <script type="text/javascript">
+                    function udfstudio_start() {
+                      document.getElementById('udfstudio').style.opacity = "1";
+                    }
+                    function udfstudio_stop() {
+                      document.getElementById('udfstudio').style.opacity = "0";
+                    }
+                    udfstudio_stop()
+                  </script>
+                </td>
+
+                <td width="65%" valign="top">
+                  <a href="">
+                    <papertitle>UDFStudio: A Unified Framework of Datasets, Benchmarks and Generative Models for Unsigned Distance Functions</papertitle>
+                  </a>
+                  <br>
+                  <a href="https://junshengzhou.github.io/">Junsheng Zhou*</a>, <strong>Weiqi Zhang*</strong>, <a href="https://mabaorui.github.io/">Baorui Ma</a>, <a href="">Kanle Shi</a>,
+                  <a href="https://yushen-liu.github.io/">Yu-Shen Liu</a>, <a href="https://h312h.github.io/">Zhizhong Han</a>
+                  <br>
+                  <em>IEEE Transactions on Pattern Analysis and Machine Intelligence <b>(TPAMI)</b></em>, 2026
+                  <br>
+                  <a href="">project page</a> |
+                  <a href="">arXiv</a> |
+                  <a href="">code</a>
+                  <p align="justify" style="font-size:13px">A unified framework providing large-scale datasets, benchmarks, and generative models for UDF-based 3D shape representation and generation.
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+            <tbody>
+              <tr onmouseout="MaterialRefGS_stop()" onmouseover="MaterialRefGS_start()">
+                <td width="28%">
+                  <div class="one">
+                    <div class="two" id="MaterialRefGS" style="opacity: 0;">
+                      <video width="225" muted="" autoplay="" loop="">
+                        <source src="media/MaterialRefGS_neurips25_after.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                    <img src="media/MaterialRefGS_neurips25_before.png" width="225">
+                  </div>
+
+                  <script type="text/javascript">
+                    function MaterialRefGS_start() {
+                      document.getElementById('MaterialRefGS').style.opacity = "1";
+                    }
+                    function MaterialRefGS_stop() {
+                      document.getElementById('MaterialRefGS').style.opacity = "0";
+                    }
+                    MaterialRefGS_stop()
+                  </script>
+                </td>
+
+                <td width="65%" valign="top">
+                  <a href="https://wen-yuan-zhang.github.io/MaterialRefGS/">
+                    <papertitle>MaterialRefGS: Reflective Gaussian Splatting with Multi-view Consistent Material Inference
+                    </papertitle>
+                  </a>
+                  <br>
+                  <a href="https://wen-yuan-zhang.github.io/">Wenyuan Zhang*</a>, <a href="https://openreview.net/profile?id=~Jimin_Tang4">Jimin Tang*</a>, <strong>Weiqi Zhang</strong>, <a href="https://scholar.google.com/citations?user=j-cyhzwAAAAJ&hl=en">Yi Fang</a>, <a href="https://yushen-liu.github.io/">Yu-Shen Liu</a>, <a href="https://h312h.github.io/">Zhizhong Han</a>
+                  <br>
+                  <em>Advances in Neural Information Processing Systems <b>(NeurIPS)</b></em>, 2025
+                  <br>
+                  <a href="https://wen-yuan-zhang.github.io/MaterialRefGS/">project page</a> |
+                  <a href="https://arxiv.org/abs/2510.11387">arXiv</a> |
+                  <a href="https://github.com/wen-yuan-zhang/MaterialRefGS">code</a>
+                  <p align="justify" style="font-size:13px">We introduce MaterialRefGS that significantly improves the rendering and reconstruction of reflective scenes in Gaussian Splatting by introducing PBR-based multi-view material consistency constraints and reflection strength prior.
+                  </p>
                 </td>
               </tr>
             </tbody>
@@ -420,7 +509,7 @@
                       <font size="2">this awesome website</font>
                     </a>
                     <br>
-                    Last updated: July 2025
+                    Last updated: March 2026
                     <br>
 
                   </font>
