@@ -22,7 +22,7 @@
 
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
   <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐸</text></svg>">
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐹</text></svg>">
 </head>
 
 <body>
@@ -41,7 +41,7 @@
                   </p>
                   <p>I am currently a third-year Master student (since fall, 2023) majoring in Software Engineering in
                     <a href="https://www.thss.tsinghua.edu.cn/">School of Software</a>, <a
-                      href="https://www.tsinghua.edu.cn/">Tsinghua University</a>, where I will continue my studies as an incoming Ph.D. student, supversied by Prof. <a
+                      href="https://www.tsinghua.edu.cn/">Tsinghua University</a>, where I will continue my studies as an incoming Ph.D. student, supervised by Prof. <a
                       href="https://yushen-liu.github.io/">Yu-Shen Liu</a>.
                   </p>
                   <p>
@@ -71,7 +71,7 @@
                   
                   <ul>
                     
-                    <li><strong>02/2026:</strong> Two papers <a href='https://weiqi-zhang.github.io'>GaussianGrow</a> and <a href='https://weiqi-zhang.github.io'>MoRe</a> got accepted to <b>CVPR 2026.</b>
+                    <li><strong>02/2026:</strong> Two papers <a href='https://weiqi-zhang.github.io/GaussianGrow'>GaussianGrow</a> and <a href='https://hellexf.github.io/MoRe/'>MoRe</a> got accepted to <b>CVPR 2026.</b>
                     </li>
                     <li><strong>02/2026:</strong> Our paper UDFStudio on large-scale UDF generation got accepted to <b>TPAMI 2026.</b>
                     </li>
@@ -135,19 +135,64 @@
                 </td>
 
                 <td width="65%" valign="top">
-                  <a href="">
+                  <a href="https://weiqi-zhang.github.io/GaussianGrow">
                     <papertitle>GaussianGrow: Geometry-aware Gaussian Growing from 3D Point Clouds with Text Guidance</papertitle>
                   </a>
                   <br>
-                  <strong>Weiqi Zhang*</strong>, <a href="https://junshengzhou.github.io/">Junsheng Zhou*</a>, <a href="">Haotian Geng</a>, <a href="">Kanle Shi</a>, <a href="">Shenkun Xu</a>,
-                  <a href="http://mmvc.engineering.nyu.edu/">Yi Fang</a>, <a href="https://yushen-liu.github.io/">Yu-Shen Liu</a>
+                  <strong>Weiqi Zhang*</strong>, <a href="https://junshengzhou.github.io/">Junsheng Zhou*</a>, <a href="">Haotian Geng</a>, Kanle Shi, Shenkun Xu,
+                  <a href="https://engineering.nyu.edu/faculty/yi-fang">Yi Fang</a>, <a href="https://yushen-liu.github.io/">Yu-Shen Liu</a>
                   <br>
                   <em>IEEE/CVF Conference on Computer Vision and Pattern Recognition <b>(CVPR)</b></em>, 2026
                   <br>
-                  <a href="">project page</a> |
+                  <a href="https://weiqi-zhang.github.io/GaussianGrow">project page</a> |
                   <a href="">arXiv</a> |
-                  <a href="">code</a>
+                  <a href="https://github.com/weiqi-zhang/GaussianGrow">code</a>
                   <p align="justify" style="font-size:13px">A geometry-aware framework that grows 3D Gaussians from point clouds with text guidance for controllable 3D generation.
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+            <tbody>
+              <tr onmouseout="MoRe_stop()" onmouseover="MoRe_start()">
+                <td width="28%">
+                  <div class="one">
+                    <div class="two" id="MoRe" style="opacity: 0;">
+                      <video width="225" muted="" autoplay="" loop="">
+                        <source src="media/Video_MoRe_after.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                    <img src="media/MoRe_before.png" width="225">
+                  </div>
+                  <script type="text/javascript">
+                    function MoRe_start() {
+                      document.getElementById('MoRe').style.opacity = "1";
+                    }
+                    function MoRe_stop() {
+                      document.getElementById('MoRe').style.opacity = "0";
+                    }
+                    MoRe_stop()
+                  </script>
+                </td>
+
+                <td width="65%" valign="top">
+                  <a href="https://hellexf.github.io/MoRe/">
+                    <papertitle>MoRe: Motion-aware Feed-forward 4D Reconstruction Transformer</papertitle>
+                  </a>
+                  <br>
+                  <a href="https://github.com/HellexF">Juntong Fang*</a>, <a href="https://github.com/Svithjod">Zequn Chen*</a>, <strong>Weiqi Zhang*</strong>,
+                  Donglin Di, Xuancheng Zhang, Chengmin Yang,
+                  <a href="https://yushen-liu.github.io/">Yu-Shen Liu</a>
+                  <br>
+                  <em>IEEE/CVF Conference on Computer Vision and Pattern Recognition <b>(CVPR)</b></em>, 2026
+                  <br>
+                  <a href="https://hellexf.github.io/MoRe/">project page</a> |
+                  <a href="https://arxiv.org/abs/2603.05078">arXiv</a> |
+                  <a href="https://github.com/HellexF/MoRe">code</a>
+                  <p align="justify" style="font-size:13px">A feed-forward 4D reconstruction network that efficiently recovers dynamic 3D scenes from monocular videos by disentangling dynamic motion from static structure with attention-forcing and grouped causal attention.
                   </p>
                 </td>
               </tr>
@@ -261,7 +306,7 @@
                     function GAP_stop() {
                       document.getElementById('GAP').style.opacity = "0";
                     }
-                    Bijective_stop()
+                    GAP_stop()
                   </script>
                 </td>
 
@@ -564,6 +609,8 @@
           </table>
         </td>
       </tr>
-
+    </tbody>
+  </table>
+</body>
 
 </html>
