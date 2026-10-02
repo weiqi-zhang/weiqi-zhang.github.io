@@ -18,6 +18,7 @@
   <title>Weiqi Zhang | 张伟琪</title>
 
   <meta name="author" content="Weiqi Zhang | 张伟琪">
+  <meta name="description" content="Weiqi Zhang is a Ph.D. student at Tsinghua University researching world models, 3D/4D generation and reconstruction, and physical AI.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
@@ -39,10 +40,10 @@
                   <p style="text-align:center">
                     <name>Weiqi Zhang | 张伟琪</name>
                   </p>
-                  <p>I am an incoming Ph.D. student (starting fall, 2026) in
-                    <a href="https://www.thss.tsinghua.edu.cn/">School of Software</a>, <a
+                  <p>I am a Ph.D. student in the
+                    <a href="https://www.thss.tsinghua.edu.cn/">School of Software</a> at <a
                       href="https://www.tsinghua.edu.cn/">Tsinghua University</a>, supervised by Prof. <a
-                      href="https://yushen-liu.github.io/">Yu-Shen Liu</a>. I received my Master's degree in Software Engineering from the same school in 2026.
+                      href="https://yushen-liu.github.io/">Yu-Shen Liu</a>. I started my Ph.D. in September 2026 and received my Master's degree in Software Engineering from the same school in 2026.
                   </p>
                   <p>
                   My research interests center on physical AI. I aim to build world models that enable intelligent agents to understand the physical world, anticipate the consequences of their actions, and interact with it effectively.
@@ -70,7 +71,10 @@
                   <heading>News</heading>
                   
                   <ul>
-                    
+                    <li><strong>10/2026:</strong> Three papers, <a href="#aeon">AEON</a>, <a href="#gamma">GAMMA</a>, and <a href="#tesla">TESLA</a>, have been accepted to <b>NeurIPS 2026</b>!
+                    </li>
+                    <li><strong>09/2026:</strong> Started my Ph.D. at <a href="https://www.tsinghua.edu.cn/">Tsinghua University</a>, advised by Prof. <a href="https://yushen-liu.github.io/">Yu-Shen Liu</a>.
+                    </li>
                     <li><strong>02/2026:</strong> Two papers <a href='https://weiqi-zhang.github.io/GaussianGrow'>GaussianGrow</a> and <a href='https://hellexf.github.io/MoRe/'>MoRe</a> <b style="color: red;">(Highlight)</b> got accepted to <b>CVPR 2026.</b>
                     </li>
                     <li><strong>02/2026:</strong> Our paper UDFStudio on large-scale UDF generation got accepted to <b>TPAMI 2026.</b>
@@ -104,6 +108,77 @@
                 <td style="padding:20px;width:100%;vertical-align:middle">
                   <heading>Research</heading>
                   <p>(<strong>*</strong> Equal Contribution)</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+            <tbody>
+              <tr id="aeon" onmouseenter="document.getElementById('aeon-preview').style.opacity='1'" onmouseleave="document.getElementById('aeon-preview').style.opacity='0'">
+                <td width="28%">
+                  <div class="one">
+                    <div class="two" id="aeon-preview" style="opacity: 0;">
+                      <video width="225" muted autoplay loop playsinline aria-hidden="true">
+                        <source src="media/neurips2026/aeon-preview.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <img src="media/neurips2026/aeon-preview.jpg" width="225" height="127" alt="AEON renders a running dog and hot-air balloons as dynamic 4D worlds">
+                  </div>
+                </td>
+                <td width="65%" valign="top">
+                  <papertitle>AEON: Unifying Video and 3D World Models</papertitle>
+                  <br>
+                  <strong>Weiqi Zhang</strong>, <a href="https://wen-yuan-zhang.github.io/">Wenyuan Zhang</a>, <a href="https://yushen-liu.github.io/">Yu-Shen Liu</a>, <a href="https://junshengzhou.github.io/">Junsheng Zhou</a>
+                  <br>
+                  <em>Conference on Neural Information Processing Systems <b>(NeurIPS)</b></em>, 2026
+                  <br>
+                  <a href="media/neurips2026/aeon-preview.mp4">video</a>
+                  <p align="justify" style="font-size:13px">Unifies video generation and 3D world modeling by decoding video latents into explicit 4D Gaussians, enabling real-time rendering across viewpoints and timesteps.</p>
+                </td>
+              </tr>
+              <tr id="gamma" onmouseenter="document.getElementById('gamma-preview').style.opacity='1'" onmouseleave="document.getElementById('gamma-preview').style.opacity='0'">
+                <td width="28%">
+                  <div class="one">
+                    <div class="two" id="gamma-preview" style="opacity: 0;">
+                      <video width="225" muted autoplay loop playsinline aria-hidden="true">
+                        <source src="media/neurips2026/gamma-preview.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <img src="media/neurips2026/gamma-preview.jpg" width="225" height="127" alt="GAMMA reconstructs RGB, surface normals, and depth from a monocular video">
+                  </div>
+                </td>
+                <td width="65%" valign="top">
+                  <papertitle>GAMMA: Scalable 4D Gaussian Reconstruction Model for Novel View Synthesis of Monocular Videos</papertitle>
+                  <br>
+                  <strong>Weiqi Zhang*</strong>, <a href="https://junshengzhou.github.io/">Junsheng Zhou*</a>, Xuancheng Zhang, <a href="https://github.com/HellexF">Juntong Fang</a>, <a href="https://github.com/Svithjod">Zequn Chen</a>, Donglin Di, <a href="https://yushen-liu.github.io/">Yu-Shen Liu</a>
+                  <br>
+                  <em>Conference on Neural Information Processing Systems <b>(NeurIPS)</b></em>, 2026
+                  <br>
+                  <a href="media/neurips2026/gamma-demo.mp4">video</a>
+                  <p align="justify" style="font-size:13px">Reconstructs dynamic 4D Gaussian scenes from monocular videos in seconds, jointly modeling geometry, appearance, and motion for real-time novel view synthesis.</p>
+                </td>
+              </tr>
+              <tr id="tesla" onmouseenter="document.getElementById('tesla-preview').style.opacity='1'" onmouseleave="document.getElementById('tesla-preview').style.opacity='0'">
+                <td width="28%">
+                  <div class="one">
+                    <div class="two" id="tesla-preview" style="opacity: 0;">
+                      <video width="225" muted autoplay loop playsinline aria-hidden="true">
+                        <source src="media/neurips2026/tesla-preview.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <img src="media/neurips2026/tesla-preview.jpg" width="225" height="127" alt="Animated objects generated by TESLA as native 4D Gaussian Splatting">
+                  </div>
+                </td>
+                <td width="65%" valign="top">
+                  <papertitle>TESLA: Native 4D Gaussian Splatting Generation with Temporally Structured Latents</papertitle>
+                  <br>
+                  <strong>Weiqi Zhang*</strong>, <a href="https://junshengzhou.github.io/">Junsheng Zhou*</a>, <a href="https://github.com/HellexF">Juntong Fang</a>, Kanle Shi, Shenkun Xu, <a href="https://yushen-liu.github.io/">Yu-Shen Liu</a>
+                  <br>
+                  <em>Conference on Neural Information Processing Systems <b>(NeurIPS)</b></em>, 2026
+                  <br>
+                  <a href="media/neurips2026/tesla-demo.mp4">video</a>
+                  <p align="justify" style="font-size:13px">Generates native 4D Gaussian Splatting from image and text conditions, using temporally structured latents to separate geometry from appearance.</p>
                 </td>
               </tr>
             </tbody>
@@ -601,7 +676,7 @@
                       <font size="2">this awesome website</font>
                     </a>
                     <br>
-                    Last updated: June 2026
+                    Last updated: October 2026
                     <br>
 
                   </font>
