@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AEON: Unifying Video and 3D World Models</title>
+  <meta name="description" content="AEON generates worlds inside the latent space of a pretrained video diffusion model and decodes them into explicit 4D Gaussian Splatting, which can be rendered in real time at different timesteps and viewpoints. NeurIPS 2026.">
+  <meta name="keywords" content="AEON, world model, 4D Gaussian Splatting, 4DGS, video diffusion, 4D generation, 4D reconstruction">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AEON: Unifying Video and 3D World Models">
+  <meta property="og:description" content="Generative 4D Gaussian worlds from a video diffusion model. NeurIPS 2026.">
+  <meta property="og:url" content="https://weiqi-zhang.github.io/AEON/">
+  <meta property="og:image" content="https://weiqi-zhang.github.io/AEON/static/img/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0B1430">
+  <link rel="icon" href="static/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="static/css/aeon.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="topbar" aria-label="Page sections">
+    <div class="topbar-inner">
+      <a class="topbar-mark" href="#top" aria-label="AEON, back to top">Aeon</a>
+      <ul class="topbar-links">
+        <li><a href="#abstract">Abstract</a></li>
+        <li><a href="#method">Method</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#worlds">Worlds</a></li>
+        <li><a href="#bibtex">BibTeX</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+    <header class="sec sec--night hero" id="top">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <p class="venue">NeurIPS 2026</p>
+          <h1 class="wordmark" aria-label="AEON">Aeon</h1>
+          <p class="subtitle">Unifying Video and 3D World Models</p>
+          <p class="lede">AEON generates a world inside the latent space of a pretrained video diffusion model and decodes it into explicit 4D Gaussians, which can be rendered in real time at different timesteps and from different viewpoints.</p>
+
+          <ul class="authors">
+            <li><a href="https://weiqi-zhang.github.io/">Weiqi Zhang</a></li>
+            <li><a href="https://wen-yuan-zhang.github.io/">Wenyuan Zhang</a></li>
+            <li><a href="https://yushen-liu.github.io/">Yu-Shen Liu</a><sup aria-label="corresponding author">&dagger;</sup></li>
+            <li><a href="https://junshengzhou.github.io/">Junsheng Zhou</a><sup aria-label="corresponding author">&dagger;</sup></li>
+          </ul>
+          <p class="affiliation">School of Software, Tsinghua University <span class="note">&dagger; Corresponding authors</span></p>
+
+          <div class="links">
+            <a class="btn" data-link href="">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 2.5h6.5L15.5 6.5V17a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5Z M11 2.8V7h4.2 M7.5 10.5h5 M7.5 13.5h5"/></svg>
+              <span>Paper</span>
+            </a>
+            <a class="btn" data-link href="">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4.5 16 15.5 M16 4.5 4 15.5"/></svg>
+              <span>arXiv</span>
+            </a>
+            <a class="btn" data-link href="">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 6 3 10l4 4 M13 6l4 4-4 4 M11.2 4.5 8.8 15.5"/></svg>
+              <span>Code</span>
+            </a>
+            <a class="btn" href="#bibtex">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5.5 6.5c-1.3.6-2 1.8-2 3.5v3.5h4v-4h-2.3c0-1.1.5-1.8 1.4-2.2 M13 6.5c-1.3.6-2 1.8-2 3.5v3.5h4v-4h-2.3c0-1.1.5-1.8 1.4-2.2"/></svg>
+              <span>BibTeX</span>
+            </a>
+          </div>
+        </div>
+
+        <figure class="hero-figure">
+          <div class="viewer" id="hero-viewer"></div>
+          <figcaption class="world-caption" id="hero-caption"></figcaption>
+          <div class="picker" id="hero-picker" role="group" aria-label="Featured worlds"></div>
+        </figure>
+      </div>
+    </header>
+
+    <section class="sec" id="abstract" aria-labelledby="abstract-title">
+      <div class="col">
+        <h2 id="abstract-title">Abstract</h2>
+        <p class="abstract">Current world models for explicit world simulation typically follow two distinct pathways: (1) video generative models (e.g., Sora), which simulate realistic appearances but fail to preserve 3D consistency; and (2) 3D generative models (e.g., Marble), which generate geometrically consistent scenes but often yield static, less realistic observations. We present AEON, a unified framework that bridges video-based and 3D-based world models and combines the benefits of both. The key insight of AEON lies in a generative model that operates within the text- or image-conditioned video latent space while producing renderable 4D graphics primitives&mdash;specifically, 4D Gaussian Splatting (4DGS)&mdash;as the explicit world representation. We train a 4D reconstruction model to predict both 4DGS and camera poses from monocular videos, serving as our initialized 4D decoder. Furthermore, we design a domain adapter that translates generative video latents into reconstructive 4D latents through a distillation process on the video VAE. AEON naturally supports video-based world modeling by rendering 4DGS at predicted camera trajectories, and constructs a persistent 4D environment with scene dynamics for realistic world simulation. Consequently, AEON empowers a diverse range of world modeling applications and achieves state-of-the-art performance on standard benchmarks.</p>
+      </div>
+    </section>
+
+    <section class="sec" id="method" aria-labelledby="method-title">
+      <div class="col">
+        <h2 id="method-title">Method</h2>
+        <p>A 4D Gaussian Reconstruction Model (4DRM) first learns to recover a 4DGS world from monocular video. AEON then connects a frozen video diffusion model to this reconstruction model through a domain adapter, so that a generated video latent can be decoded directly into 4D Gaussians.</p>
+      </div>
+      <figure class="col col--wide figure">
+        <div class="plate"><img src="static/img/method.webp" width="2400" height="1184" loading="lazy" decoding="async" alt="Overview of AEON: the 4D Gaussian Reconstruction Model on top, generative world modeling with a domain adapter and a student 4DRM below."></div>
+        <figcaption><b>Figure 2.</b> Overview of AEON. Top: the 4DRM decodes a monocular video into a 4DGS world through four heads that predict depth, Gaussian appearance, dynamic evolution and camera poses; the primitives are rasterized into RGB, depth and normal maps for end-to-end supervision. Bottom: AEON distills the generative capability of a frozen video diffusion model (e.g., Wan 2.2) and the reconstructive capability of a teacher 4DRM into a domain adapter and a learnable student 4DRM.</figcaption>
+      </figure>
+
+      <div class="col">
+        <h3>4D Gaussians as the world representation</h3>
+        <p>Each primitive stores a position, scale, rotation, opacity and color, plus four temporal attributes: a reference time <i>t<sub>i</sub></i>, a duration <i>l<sub>i</sub></i>, a linear velocity <i>v<sub>i</sub></i> and an angular velocity <i>&omega;<sub>i</sub></i>. Its opacity follows a Gaussian in time centred at <i>t<sub>i</sub></i>, while its position and rotation change with its velocities. Content can therefore appear, move and vanish independently, and the world can be rendered at any continuous timestep.</p>
+      </div>
+      <figure class="col explainer" id="explainer">
+        <div class="explainer-stage">
+          <svg class="explainer-svg" viewBox="0 0 960 344" role="img" aria-labelledby="explainer-desc">
+            <desc id="explainer-desc">Three illustrative 4D Gaussian primitives. The top band shows them in space; the bottom band shows their opacity over time as Gaussian curves. A time marker moves across the curves.</desc>
+          </svg>
+        </div>
+        <figcaption>Illustration with three primitives; drag across it to move through time. A primitive reaches its full opacity at its reference time <i>t<sub>i</sub></i> and fades to 5% of it at either end of its duration <i>l<sub>i</sub></i>.</figcaption>
+      </figure>
+
+      <div class="col">
+        <h3>Training in three stages</h3>
+        <ol class="stages">
+          <li>
+            <span class="stage-num" aria-hidden="true">1</span>
+            <div>
+              <h4>Reconstruction model</h4>
+              <p>The 4DRM, initialized from MapAnything, learns to predict 4D Gaussians and camera poses from posed videos. Its renderings are supervised for appearance, metric geometry and dynamic disentanglement.</p>
+            </div>
+          </li>
+          <li>
+            <span class="stage-num" aria-hidden="true">2</span>
+            <div>
+              <h4>Generative distillation</h4>
+              <p>The 4DRM is frozen as a teacher that sees ground-truth frames. A domain adapter and a student 4DRM learn to reproduce the teacher's 4D world from video latents alone, so this stage needs only raw RGB videos.</p>
+            </div>
+          </li>
+          <li>
+            <span class="stage-num" aria-hidden="true">3</span>
+            <div>
+              <h4>Rendering refinement</h4>
+              <p>The adapter and student are fine-tuned end to end against frames decoded by the video VAE, so the student is optimized for rendering quality rather than imitation alone.</p>
+            </div>
+          </li>
+        </ol>
+
+        <h3>From video latents to 4D latents</h3>
+        <p>The domain adapter adds a linear branch, initialized by closed-form ridge regression, to a Perceiver Bridge that attends across each frame with a global receptive field. A learnable gate starts at zero, so training begins from the linear solution. The adapter output enters the DINOv2 backbone at layer 4, bypassing the patch embedding and the first four blocks, so the upper 20 pretrained blocks are kept as a geometric foundation.</p>
+        <p class="aside">Why not decode the video first and reconstruct it? The 4DRM is trained on real videos, while decoded generations carry VAE and generation artifacts outside that distribution, so decoding errors would compound with reconstruction errors.</p>
+      </div>
+    </section>
+
+    <section class="sec" id="results" aria-labelledby="results-title">
+      <div class="col">
+        <h2 id="results-title">Results</h2>
+        <h3>Compared with video and 3D world models</h3>
+        <p>Video world models such as Sora render realistic appearance, but they do not keep a generated scene consistent in 3D. 3D world models such as Marble build consistent geometry, but their worlds are often static and less realistic. AEON keeps the realism and dynamics of video and adds the 3D consistency and persistence of an explicit 4D world that can be explored in real time.</p>
+      </div>
+      <div class="col col--wide">
+        <div class="table-wrap">
+          <table class="paradigms">
+            <caption>How the two paradigms compare with AEON (Table 1 in the paper).</caption>
+            <thead>
+              <tr>
+                <th scope="col">Paradigm</th>
+                <th scope="col">Realistic</th>
+                <th scope="col">3D consistent</th>
+                <th scope="col">Dynamic</th>
+                <th scope="col">Persistent</th>
+                <th scope="col">Real-time exploration</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Video world model <span class="eg">e.g. Sora</span></th>
+                <td data-yes><span class="sr">Yes</span></td><td data-no><span class="sr">No</span></td><td data-yes><span class="sr">Yes</span></td><td data-no><span class="sr">No</span></td><td data-no><span class="sr">No</span></td>
+              </tr>
+              <tr>
+                <th scope="row">3D world model <span class="eg">e.g. Marble</span></th>
+                <td data-no><span class="sr">No</span></td><td data-yes><span class="sr">Yes</span></td><td data-no><span class="sr">No</span></td><td data-yes><span class="sr">Yes</span></td><td data-yes><span class="sr">Yes</span></td>
+              </tr>
+              <tr class="ours">
+                <th scope="row">AEON</th>
+                <td data-yes><span class="sr">Yes</span></td><td data-yes><span class="sr">Yes</span></td><td data-yes><span class="sr">Yes</span></td><td data-yes><span class="sr">Yes</span></td><td data-yes><span class="sr">Yes</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="applications" aria-labelledby="applications-title">
+      <div class="col">
+        <h2 id="applications-title">What an explicit 4D world supports</h2>
+        <p>Because AEON outputs a 4DGS world rather than a video, the same generation can be rendered at new timesteps and viewpoints, read out as depth and normals, and taken apart. Filtering primitives by lifespan separates static scenery from moving content, and the parts can be edited and recomposed for simulation.</p>
+      </div>
+      <figure class="col col--wide figure">
+        <div class="plate"><img src="static/img/teaser.webp" width="2400" height="1535" loading="lazy" decoding="async" alt="Four generated 4DGS worlds rendered at different timesteps and viewpoints with depth and normals, and an edited scene where a van is replaced by a walking robot."></div>
+        <figcaption><b>Figure 1.</b> AEON generates 4DGS worlds that support real-time rendering at different timesteps and viewpoints. The worlds are also ready for explicit editing and simulation (bottom).</figcaption>
+      </figure>
+    </section>
+
+    <section class="sec sec--night" id="worlds" aria-labelledby="worlds-title">
+      <div class="col worlds-head">
+        <h2 id="worlds-title">Generated worlds</h2>
+        <p>62 worlds generated from text or from a condition image. Every world is rendered as RGB, depth and normals from the same 4D Gaussians. Select one to explore it.</p>
+      </div>
+      <div class="col">
+        <ul class="world-grid" id="world-grid"></ul>
+      </div>
+    </section>
+
+    <section class="sec" id="bibtex" aria-labelledby="bibtex-title">
+      <div class="col">
+        <div class="bibtex-head">
+          <h2 id="bibtex-title">BibTeX</h2>
+          <button type="button" class="copy" data-copy="#bibtex-code">Copy BibTeX</button>
+        </div>
+        <div class="bibtex">
+<pre><code id="bibtex-code">@inproceedings{zhang2026aeon,
+  title={{AEON}: Unifying Video and {3D} World Models},
+  author={Zhang, Weiqi and Zhang, Wenyuan and Liu, Yu-Shen and Zhou, Junsheng},
+  booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
+  year={2026}
+}</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="world-dialog" id="world-dialog" aria-label="World viewer">
+    <div class="dialog-body">
+      <div class="dialog-top">
+        <div class="dialog-nav">
+          <button type="button" class="btn btn--quiet" data-step="-1">Previous</button>
+          <span class="dialog-count" id="dialog-count"></span>
+          <button type="button" class="btn btn--quiet" data-step="1">Next</button>
+        </div>
+        <button type="button" class="dialog-close" aria-label="Close viewer">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15"/></svg>
+        </button>
+      </div>
+      <div class="viewer" id="dialog-viewer"></div>
+      <div class="world-caption" id="dialog-caption"></div>
+    </div>
+  </dialog>
+
+  <template id="viewer-template">
+    <div class="viewer-stage">
+      <canvas class="viewer-canvas"></canvas>
+      <div class="band-labels" aria-hidden="true">
+        <span class="band-label" data-band="0">RGB</span>
+        <span class="band-label" data-band="1">Depth</span>
+        <span class="band-label" data-band="2">Normal</span>
+      </div>
+      <div class="divider" data-divider="0" tabindex="0" role="slider" aria-label="Boundary between RGB and depth" aria-valuemin="0" aria-valuemax="100"><span class="grip"></span></div>
+      <div class="divider" data-divider="1" tabindex="0" role="slider" aria-label="Boundary between depth and normals" aria-valuemin="0" aria-valuemax="100"><span class="grip"></span></div>
+    </div>
+    <div class="viewer-controls">
+      <button type="button" class="play" aria-label="Pause">
+        <svg class="i-pause" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5v10M13 5v10"/></svg>
+        <svg class="i-play" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4.8v10.4L15.5 10Z"/></svg>
+      </button>
+      <div class="timeline">
+        <div class="ticks" aria-hidden="true"><div class="ticks-done"></div></div>
+        <input type="range" class="time" min="0" max="80" step="1" value="0" aria-label="Timestep">
+      </div>
+      <output class="readout" aria-live="off"></output>
+    </div>
+    <div class="viewer-modes" role="group" aria-label="Rendering">
+      <button type="button" data-mode="split" aria-pressed="true">Split</button>
+      <button type="button" data-mode="rgb" aria-pressed="false">RGB</button>
+      <button type="button" data-mode="depth" aria-pressed="false">Depth</button>
+      <button type="button" data-mode="normal" aria-pressed="false">Normal</button>
+    </div>
+  </template>
+
+  <script src="static/js/worlds.js"></script>
+  <script src="static/js/aeon.js"></script>
+</body>
+</html>
