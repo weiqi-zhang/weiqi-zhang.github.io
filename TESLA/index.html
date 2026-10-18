@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TESLA: Native 4D Gaussian Splatting Generation with Temporally Structured Latents</title>
+  <meta name="description" content="From one reference image and a text prompt, TESLA generates an animated object directly as native 4D Gaussian Splatting, which can be rendered from any viewpoint at any timestep. NeurIPS 2026.">
+  <meta name="keywords" content="TESLA, 4D generation, 4D Gaussian Splatting, 4DGS, animation, structured latents, rectified flow, NeurIPS 2026">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="TESLA: Native 4D Gaussian Splatting Generation with Temporally Structured Latents">
+  <meta property="og:description" content="Animated objects generated directly as native 4D Gaussians from an image and a text prompt. NeurIPS 2026.">
+  <meta property="og:url" content="https://weiqi-zhang.github.io/TESLA/">
+  <meta property="og:image" content="https://weiqi-zhang.github.io/TESLA/static/img/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#FFFFFF">
+  <link rel="icon" href="static/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="static/css/tesla.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="topbar" aria-label="Page sections">
+    <div class="topbar-inner">
+      <a class="topbar-mark" href="#top" aria-label="TESLA, back to top"><span class="mark-vox" aria-hidden="true"></span><span>TESLA</span></a>
+      <ul class="topbar-links">
+        <li><a href="#abstract">Abstract</a></li>
+        <li><a href="#method">Method</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#bibtex">BibTeX</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+    <header class="hero" id="top">
+      <div class="hero-inner">
+        <p class="venue">NeurIPS 2026</p>
+        <h1 class="vox-title"><svg class="voxel-mark" role="img" aria-label="TESLA"></svg></h1>
+        <p class="subtitle">Native 4D Gaussian Splatting Generation with Temporally Structured Latents</p>
+        <div class="byline">
+          <ul class="authors">
+            <li><a href="https://weiqi-zhang.github.io/">Weiqi Zhang</a><sup>1<span aria-label="equal contribution">*</span></sup></li>
+            <li><a href="https://junshengzhou.github.io/">Junsheng Zhou</a><sup>1<span aria-label="equal contribution">*</span><span aria-label="corresponding author">&dagger;</span></sup></li>
+            <li><a href="https://github.com/HellexF">Juntong Fang</a><sup>1<span aria-label="equal contribution">*</span></sup></li>
+            <li><span class="name">Kanle Shi</span><sup>2</sup></li>
+            <li><span class="name">Shenkun Xu</span><sup>2</sup></li>
+            <li><a href="https://yushen-liu.github.io/">Yu-Shen Liu</a><sup>1<span aria-label="corresponding author">&dagger;</span></sup></li>
+          </ul>
+          <p class="affiliation"><span><sup>1</sup>School of Software, Tsinghua University</span> <span><sup>2</sup>Kuaishou Technology</span></p>
+          <p class="affiliation affiliation--notes"><span>* Equal contribution</span> <span>&dagger; Corresponding authors</span></p>
+        </div>
+        <div class="links">
+          <a class="btn" data-link href=""><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 2.5h6.5L15.5 6.5V17a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5Z M11 2.8V7h4.2 M7.5 10.5h5 M7.5 13.5h5"/></svg><span>Paper</span></a>
+          <a class="btn" data-link href=""><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4.5 16 15.5 M16 4.5 4 15.5"/></svg><span>arXiv</span></a>
+          <a class="btn" data-link href=""><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 6 3 10l4 4 M13 6l4 4-4 4 M11.2 4.5 8.8 15.5"/></svg><span>Code</span></a>
+          <a class="btn" href="#bibtex"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5.5 6.5c-1.3.6-2 1.8-2 3.5v3.5h4v-4h-2.3c0-1.1.5-1.8 1.4-2.2 M13 6.5c-1.3.6-2 1.8-2 3.5v3.5h4v-4h-2.3c0-1.1.5-1.8 1.4-2.2"/></svg><span>BibTeX</span></a>
+        </div>
+        <div class="hero-cells">
+          <div class="cell cell--text">
+            <p class="lede">From one reference image and a sentence that describes the motion, TESLA generates an animated object directly as 4D Gaussians, without reconstructing it from generated videos or optimizing it per scene. The result can be rendered from any viewpoint at any timestep.</p>
+          </div>
+          <div class="cell cell--stage">
+            <div class="viewer" id="main-viewer"></div>
+          </div>
+          <div class="cell cell--input">
+            <div class="clip-caption" id="main-caption"></div>
+            <div class="picker" id="main-picker" role="group" aria-label="Featured results"></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="sec" id="abstract" aria-labelledby="abstract-title">
+      <div class="col">
+        <h2 id="abstract-title">Abstract</h2>
+        <p class="abstract">Diffusion models have achieved remarkable success in image, video, and 3D content creation. However, extending these successes to native 4D model generation remains challenging due to the intricate coupling between temporal geometry and appearance dynamics. Existing approaches typically generate 4D content by synthesizing videos from novel viewpoints, yet they often suffer from poor spatio-temporal consistency across views and time. To address these limitations, we introduce TESLA, a novel feedforward approach for generating native 4D Gaussian Splatting (4DGS) representations. Our key insight is to decouple temporal geometry and appearance generation through a temporally structured latent representation. This decomposition allows us to first establish coarse temporal geometry that captures fundamental structural dynamics, and then synthesize fine-grained appearance details conditioned on this geometric scaffold. To bridge this decoupled representation to the final output, we design a native 4DGS decoder that directly transforms our temporal features into native 4DGS representations, enabling flexible temporal rendering across arbitrary viewpoints and timesteps. Trained on a large collection of curated animated sequences, we extensively evaluate TESLA on the 4DGS generation task, showing superior performance over existing baselines.</p>
+      </div>
+    </section>
+
+    <section class="sec" id="method" aria-labelledby="method-title">
+      <div class="col">
+        <h2 id="method-title">Method</h2>
+        <p>TESLA represents an animated object as a sequence of structured latents, one for each timestep. At every timestep, the active voxels of a 64&times;64&times;64 grid describe the coarse geometry, and a latent feature attached to each active voxel describes the local appearance. Generation follows the same split: geometry over time comes first, appearance is added on top of it, and a decoder turns the result into native 4D Gaussians.</p>
+        <figure class="figure"><div class="frame"><img src="static/img/method.webp" width="2400" height="1350" loading="lazy" decoding="async" alt="Overview of TESLA: a reference image and a prompt condition the Temporal SS DiT, which produces sparse voxel structures over time; the Temporal Slat DiT adds appearance latents; the 4DGS decoder outputs native 4D Gaussians of a walking person."></div><figcaption><b>Figure 2.</b> Overview of TESLA. Given a reference image and a text prompt, the Temporal SS DiT first produces sparse geometric structures over time, and the Temporal Slat DiT then synthesizes dense appearance latents on them. The 4DGS decoder transforms these temporal latents directly into native 4D Gaussian parameters, so rendering is not constrained to discrete video frames.</figcaption></figure>
+
+        <h3>Geometry first, then appearance</h3>
+        <ol class="stages">
+          <li>
+            <span class="stage-num" aria-hidden="true">1</span>
+            <h4>Sparse structure over time</h4>
+            <p>Conditioned on the image and the prompt, the Temporal SS DiT generates the active voxels of every timestep. This scaffold fixes how the coarse shape moves.</p>
+          </li>
+          <li>
+            <span class="stage-num" aria-hidden="true">2</span>
+            <h4>Appearance latents</h4>
+            <p>Conditioned on the scaffold, the Temporal Slat DiT generates a latent feature for each active voxel, which adds fine-grained appearance detail.</p>
+          </li>
+          <li>
+            <span class="stage-num" aria-hidden="true">3</span>
+            <h4>Native 4DGS decoding</h4>
+            <p>A transformer decoder with temporal self-attention maps the latent sequence directly to 4D Gaussians, with no intermediate reconstruction stage.</p>
+          </li>
+        </ol>
+        <p>Both DiTs are rectified flow models. In each block, temporal self-attention first relates the timesteps to one another. Image and text cross-attention then run in parallel and their outputs are added, so the image branch keeps the appearance of the reference while the text branch carries the motion that the prompt describes. An <i>xyzt</i> position embedding tells every token where and when it is.</p>
+
+        <h3>4D Gaussians, sliced in time</h3>
+        <p>Each primitive is a Gaussian over <i>x</i>, <i>y</i>, <i>z</i> and <i>t</i>, with a 4D center, four scales and a 4D rotation given by a pair of quaternions. To render at time <i>t</i>, it is split into a 3D Gaussian conditioned on <i>t</i>, which is splatted as in 3DGS, and a 1D Gaussian over time that weights it. When the rotation mixes space and time, the Gaussian is tilted, and its 3D slice moves as <i>t</i> advances. The decoder also predicts a color, an opacity and a learned temporal offset for each Gaussian, and its output can be rendered at any continuous timestep.</p>
+        <figure class="explainer" id="explainer">
+          <div class="explainer-stage">
+            <svg class="explainer-svg" role="img" aria-labelledby="explainer-desc">
+              <desc id="explainer-desc">Three illustrative Gaussians drawn over one spatial axis and time. A time marker slices them; on the right, the slices appear as the Gaussians rendered at that time.</desc>
+            </svg>
+          </div>
+          <figcaption>Illustration with one spatial axis; drag across it to move through time. A Gaussian that is tilted in space and time moves as <i>t</i> advances, and the farther <i>t</i> is from its temporal center, the weaker its contribution.</figcaption>
+        </figure>
+        <p class="aside">Why not generate every frame with a 3D generator? Frames generated independently share no Gaussians, so nothing ties one frame to the next and the sequence flickers. A stack of per-frame 3D Gaussians can also be rendered only at the frames it was generated for.</p>
+
+        <h3>Training data</h3>
+        <p>TESLA is trained on 45,000 animated sequences curated from DeformingThings4D, Objaverse and Objaverse-XL. Each sequence is sampled at 24 frames and each frame is rendered from 36 or 48 views, for over 1.08 million frames in total. The captions that describe each motion are written by Qwen2.5-VL.</p>
+      </div>
+    </section>
+
+    <section class="sec" id="results" aria-labelledby="results-title">
+      <div class="col">
+        <h2 id="results-title">Results</h2>
+        <p>Every object below is generated from one reference image and a text prompt, and rendered from the 4D Gaussians that TESLA outputs. Select an object to see it at full size.</p>
+
+        <h3>Front views</h3>
+        <p>Rendered from a fixed camera in front of the object.</p>
+        <ul class="wall" data-view="front" aria-label="Results rendered from front views"></ul>
+
+        <h3>Free viewpoints</h3>
+        <p>Rendered while the camera moves around the object.</p>
+        <ul class="wall" data-view="free" aria-label="Results rendered from free viewpoints"></ul>
+      </div>
+    </section>
+
+    <section class="sec" id="bibtex" aria-labelledby="bibtex-title">
+      <div class="col">
+        <div class="bibtex-head">
+          <h2 id="bibtex-title">BibTeX</h2>
+          <button type="button" class="copy" data-copy="#bibtex-code">Copy BibTeX</button>
+        </div>
+        <div class="bibtex">
+<pre><code id="bibtex-code">@inproceedings{zhang2026tesla,
+  title={{TESLA}: Native {4D} Gaussian Splatting Generation with Temporally Structured Latents},
+  author={Zhang, Weiqi and Zhou, Junsheng and Fang, Juntong and Shi, Kanle and Xu, Shenkun and Liu, Yu-Shen},
+  booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
+  year={2026}
+}</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="clip-dialog" id="clip-dialog" aria-label="Result viewer">
+    <div class="dialog-body">
+      <div class="dialog-top">
+        <div class="dialog-nav">
+          <button type="button" class="btn btn--quiet" data-step="-1">Previous</button>
+          <span class="dialog-count" id="dialog-count"></span>
+          <button type="button" class="btn btn--quiet" data-step="1">Next</button>
+        </div>
+        <button type="button" class="dialog-close" aria-label="Close viewer"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15"/></svg></button>
+      </div>
+      <div class="viewer viewer--dialog" id="dialog-viewer"></div>
+      <div class="clip-caption" id="dialog-caption"></div>
+    </div>
+  </dialog>
+
+  <template id="viewer-template">
+    <div class="viewer-stage"><video class="viewer-video" muted loop playsinline preload="auto" aria-hidden="true"></video></div>
+    <div class="viewer-controls">
+      <button type="button" class="play" aria-label="Pause">
+        <svg class="i-pause" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5v10M13 5v10"/></svg>
+        <svg class="i-play" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4.8v10.4L15.5 10Z"/></svg>
+      </button>
+      <div class="timeline">
+        <div class="ticks" aria-hidden="true"><div class="ticks-done"></div></div>
+        <input type="range" class="time" min="0" max="23" step="1" value="0" aria-label="Frame">
+      </div>
+      <output class="readout" aria-live="off"></output>
+    </div>
+  </template>
+
+  <script src="static/js/clips.js"></script>
+  <script src="static/js/tesla.js"></script>
+</body>
+</html>
