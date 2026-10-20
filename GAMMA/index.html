@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GAMMA: A Feed-Forward 4D Gaussian Reconstruction Model for Novel View Synthesis of Monocular Videos</title>
+  <meta name="description" content="GAMMA reconstructs 4D Gaussian Splatting from a monocular video in a single forward pass, without per-scene optimization, and renders it in real time across timesteps and local viewpoints. NeurIPS 2026.">
+  <meta name="keywords" content="GAMMA, 4D Gaussian Splatting, 4DGS, feed-forward reconstruction, monocular video, novel view synthesis, dynamic scenes, NeurIPS 2026">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="GAMMA: A Feed-Forward 4D Gaussian Reconstruction Model for Novel View Synthesis of Monocular Videos">
+  <meta property="og:description" content="GAMMA reconstructs 4D Gaussian Splatting from a monocular video in a single forward pass, without per-scene optimization, and renders it in real time across timesteps and local viewpoints. NeurIPS 2026.">
+  <meta property="og:url" content="https://weiqi-zhang.github.io/GAMMA/">
+  <meta property="og:image" content="https://weiqi-zhang.github.io/GAMMA/static/img/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#FFFFFF">
+  <link rel="icon" href="static/img/favicon.png" type="image/png">
+  <link rel="stylesheet" href="static/css/gamma.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="topbar" aria-label="Page sections">
+    <div class="topbar-inner">
+      <a class="topbar-mark" href="#top">GAMMA</a>
+      <ul class="topbar-links">
+        <li><a href="#abstract">Abstract</a></li>
+        <li><a href="#method">Method</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#bibtex">BibTeX</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+    <header class="hero" id="top">
+      <div class="col">
+        <p class="venue">NeurIPS 2026</p>
+        <h1><span class="wordmark">GAMMA</span><span class="subtitle">A Feed-Forward 4D Gaussian Reconstruction Model for Novel View Synthesis of Monocular Videos</span></h1>
+        <div class="byline">
+          <ul class="authors">
+            <li><a href="https://weiqi-zhang.github.io/">Weiqi Zhang</a><sup>1<span aria-label="equal contribution">*</span></sup></li>
+            <li><a href="https://junshengzhou.github.io/">Junsheng Zhou</a><sup>1<span aria-label="equal contribution">*</span></sup></li>
+            <li><span class="name">Xuancheng Zhang</span><sup>1,2</sup></li>
+            <li><a href="https://github.com/HellexF">Juntong Fang</a><sup>1</sup></li>
+            <li><a href="https://github.com/Svithjod">Zequn Chen</a><sup>2</sup></li>
+            <li><span class="name">Donglin Di</span><sup>2</sup></li>
+            <li><a href="https://yushen-liu.github.io/">Yu-Shen Liu</a><sup>1<span aria-label="corresponding author">&dagger;</span></sup></li>
+          </ul>
+          <p class="affiliation"><span><sup>1</sup>School of Software, Tsinghua University</span> <span><sup>2</sup>Li Auto</span></p>
+          <p class="affiliation affiliation--notes"><span>* Equal contribution</span> <span>&dagger; Corresponding author</span></p>
+        </div>
+        <div class="links">
+          <a class="btn is-soon" aria-disabled="true"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 2.5h6.5L15.5 6.5V17a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5Z M11 2.8V7h4.2 M7.5 10.5h5 M7.5 13.5h5"/></svg><span>Paper</span><small>soon</small></a>
+          <a class="btn is-soon" aria-disabled="true"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4.5 16 15.5 M16 4.5 4 15.5"/></svg><span>arXiv</span><small>soon</small></a>
+          <a class="btn is-soon" aria-disabled="true"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 6 3 10l4 4 M13 6l4 4-4 4 M11.2 4.5 8.8 15.5"/></svg><span>Code</span><small>soon</small></a>
+          <a class="btn" href="#bibtex"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5.5 6.5c-1.3.6-2 1.8-2 3.5v3.5h4v-4h-2.3c0-1.1.5-1.8 1.4-2.2 M13 6.5c-1.3.6-2 1.8-2 3.5v3.5h4v-4h-2.3c0-1.1.5-1.8 1.4-2.2"/></svg><span>BibTeX</span></a>
+        </div>
+      </div>
+      <div class="filmband" role="img" aria-label="A strip of videos rendered by GAMMA: novel views of four DAVIS videos and, in the middle, a bullet-time view.">
+        <div class="filmband-strip">
+          <figure class="frame" data-video><div class="frame-gate"><video data-half="right" muted loop playsinline preload="auto" width="920" height="352" poster="static/clips/nv-car.webp" aria-hidden="true"><source src="static/clips/nv-car.mp4" type="video/mp4"></video></div><figcaption>novel view</figcaption></figure>
+          <figure class="frame" data-video><div class="frame-gate"><video data-half="right" muted loop playsinline preload="auto" width="920" height="352" poster="static/clips/nv-dance.webp" aria-hidden="true"><source src="static/clips/nv-dance.mp4" type="video/mp4"></video></div><figcaption>novel view</figcaption></figure>
+          <figure class="frame" data-video><div class="frame-gate"><video data-half="right" muted loop playsinline preload="auto" width="920" height="368" poster="static/clips/bt-mat.webp" aria-hidden="true"><source src="static/clips/bt-mat.mp4" type="video/mp4"></video></div><figcaption>bullet time</figcaption></figure>
+          <figure class="frame" data-video><div class="frame-gate"><video data-half="right" muted loop playsinline preload="auto" width="920" height="352" poster="static/clips/nv-train.webp" aria-hidden="true"><source src="static/clips/nv-train.mp4" type="video/mp4"></video></div><figcaption>novel view</figcaption></figure>
+          <figure class="frame" data-video><div class="frame-gate"><video data-half="right" muted loop playsinline preload="auto" width="920" height="352" poster="static/clips/nv-ball.webp" aria-hidden="true"><source src="static/clips/nv-ball.mp4" type="video/mp4"></video></div><figcaption>novel view</figcaption></figure>
+        </div>
+      </div>
+      <p class="hero-caption col">Rendered from the 4D Gaussians that GAMMA predicts from monocular videos. Inputs and more results are below.</p>
+    </header>
+
+    <section class="sec" id="abstract" aria-labelledby="abstract-title">
+      <div class="col">
+        <h2 id="abstract-title">Abstract</h2>
+        <p class="abstract">We present GAMMA, a feed-forward model that reconstructs 4D Gaussian Splatting from monocular videos, enabling dynamic novel view synthesis in real-time. Most existing approaches for dynamic scene modeling require multi-view videos as input or costly per-scene optimization. In contrast, GAMMA learns a unified 4D scene representation from monocular videos and directly predicts 4D Gaussian primitives within seconds. The key insight of GAMMA lies in its unified Gaussian reconstruction model, which jointly estimates temporally consistent geometry, appearance, and motion from the input video. We train GAMMA on a mixture of synthetic and real-world videos, and it reconstructs an input clip in a single forward pass without per-scene optimization. The reconstructed GAMMA representation supports interactive scene exploration via real-time rendering across timesteps and local viewpoints. Extensive experiments demonstrate that GAMMA outperforms existing methods in both reconstruction fidelity and efficiency.</p>
+      </div>
+    </section>
+
+    <section class="sec" id="method" aria-labelledby="method-title">
+      <div class="col">
+        <h2 id="method-title">Method</h2>
+        <p>GAMMA takes a monocular video with known cameras and predicts a set of 4D Gaussians in one forward pass. A shared transformer backbone reads all frames together, and two heads decode its features: a depth head that places the Gaussians and a Gaussian head that predicts everything else.</p>
+        <figure class="figure"><img src="static/img/method.webp" width="2400" height="1095" loading="lazy" decoding="async" alt="Overview of GAMMA: five input frames, each encoded by DINOv2 and a camera and timestep encoder, pass through aggregated attention blocks; a depth decoder and a Gaussian decoder then produce 4D Gaussians that render RGB, motion, normal and depth maps."><figcaption class="cap"><b>Figure 2.</b> Overview of GAMMA. Each frame is encoded by DINOv2, while a camera encoder embeds its camera parameters and timestep. Aggregated attention blocks alternate between frame-wise and global attention across all frames. A depth decoder predicts per-frame depth maps, and a Gaussian decoder predicts the full 4D Gaussian parameters, which render RGB images, depth maps, motion fields and surface normals.</figcaption></figure>
+        <h3>Backbone</h3>
+        <p>Each frame is encoded by a pretrained DINOv2 encoder. The camera rotation, the translation direction and a per-pixel ray-direction map are embedded and added to the image features, together with a sinusoidal encoding of the timestep. The tokens of all frames then pass through 24 transformer layers that alternate between attention within each frame and attention across all frames, so features from different timesteps interact in both directions.</p>
+        <h3>Two heads</h3>
+        <p>The depth head is inherited from MapAnything, which was pretrained on large-scale 3D reconstruction data. It predicts a depth map for every frame, and unprojecting each pixel with its camera gives the centers of the Gaussians. The Gaussian head predicts the remaining attributes of each Gaussian: scale, rotation, opacity, color, timestep, lifespan, and linear and angular velocity.</p>
+        <h3>4D Gaussians</h3>
+        <p>Each primitive is a flat 2D Gaussian disk, as in 2DGS, so it carries an explicit surface normal. Its timestep marks when it is most visible, and its opacity fades in and out around that timestep at a rate set by its lifespan. Within its lifespan, the disk moves with a constant linear and angular velocity.</p>
+        <h3>Two-stage training</h3>
+        <p>Without a constraint, the network drifts toward per-frame reconstruction: short-lived Gaussians flicker in and out instead of moving. Stage 1 therefore penalizes short lifespans for all Gaussians, which pushes the model to explain dynamics with coherent motion. Linear motion cannot represent sudden stops or turns, so Stage 2 keeps the penalty only on the 90% longest-lived Gaussians in each forward pass and lets the remaining 10% end early at motion discontinuities.</p>
+        <figure class="lifespan" aria-label="Illustration of the lifespan penalty in the two training stages">
+          <div class="ls-bar">
+            <div class="ls-switch" role="group" aria-label="Training stage">
+              <button type="button" data-stage="1" aria-pressed="true">Stage 1</button>
+              <button type="button" data-stage="2" aria-pressed="false">Stage 2</button>
+            </div>
+            <div class="ls-legend"><span><i></i>lifespan penalty</span><span><i class="free"></i>free</span></div>
+          </div>
+          <svg class="ls-svg" role="img" aria-label="Twenty illustrative Gaussians drawn as bars over time, sorted by lifespan."></svg>
+          <p class="ls-note" aria-live="polite"></p>
+          <figcaption class="cap">Illustration, not model output. Each bar is one Gaussian over time: its opacity peaks at its timestep (the short vertical mark) and fades to 5% at the ends of its lifespan, following the temporal opacity used in GAMMA.</figcaption>
+        </figure>
+        <p>Training combines L1, SSIM and LPIPS rendering losses, a depth loss and velocity regularization. Depth is supervised with ground truth, or with MoGe-2 pseudo-depth for datasets without it, and the training videos mix synthetic and real-world footage.</p>
+      </div>
+    </section>
+
+    <section class="sec" id="results" aria-labelledby="results-title">
+      <div class="col">
+        <h2 id="results-title">Results</h2>
+        <p>All results are produced by GAMMA from monocular videos, without per-scene optimization. Click a video to pause it.</p>
+        <h3>Novel views on DAVIS</h3>
+        <p>None of the DAVIS videos is in the training set. In each pair, the left video is GAMMA's rendered RGB, and the right one renders the same reconstruction from a moving novel viewpoint.</p>
+        <figure class="clip clip--pair" data-video data-clip="nv-dance" data-time="run" data-fps="10">
+            <div class="clip-head"><span>Rendered RGB</span><span>Novel view</span></div>
+            <div class="clip-stage"><video muted loop playsinline preload="none" width="920" height="352" poster="static/clips/nv-dance.webp" aria-label="Rendered RGB and Novel view, side by side: a breakdancer."><source src="static/clips/nv-dance.mp4" type="video/mp4"></video><span class="paused-mark" aria-hidden="true"></span></div>
+            <div class="clip-time"><span class="ticks"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+          </figure>
+        <figure class="clip clip--pair" data-video data-clip="nv-car" data-time="run" data-fps="10">
+            <div class="clip-head"><span>Rendered RGB</span><span>Novel view</span></div>
+            <div class="clip-stage"><video muted loop playsinline preload="none" width="920" height="352" poster="static/clips/nv-car.webp" aria-label="Rendered RGB and Novel view, side by side: a car on a mountain road."><source src="static/clips/nv-car.mp4" type="video/mp4"></video><span class="paused-mark" aria-hidden="true"></span></div>
+            <div class="clip-time"><span class="ticks"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+          </figure>
+        <figure class="clip clip--pair" data-video data-clip="nv-train" data-time="run" data-fps="10">
+            <div class="clip-head"><span>Rendered RGB</span><span>Novel view</span></div>
+            <div class="clip-stage"><video muted loop playsinline preload="none" width="920" height="352" poster="static/clips/nv-train.webp" aria-label="Rendered RGB and Novel view, side by side: a toy train on a model railway."><source src="static/clips/nv-train.mp4" type="video/mp4"></video><span class="paused-mark" aria-hidden="true"></span></div>
+            <div class="clip-time"><span class="ticks"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+          </figure>
+        <figure class="clip clip--pair" data-video data-clip="nv-ball" data-time="run" data-fps="10">
+            <div class="clip-head"><span>Rendered RGB</span><span>Novel view</span></div>
+            <div class="clip-stage"><video muted loop playsinline preload="none" width="920" height="352" poster="static/clips/nv-ball.webp" aria-label="Rendered RGB and Novel view, side by side: a ball rolling between trees."><source src="static/clips/nv-ball.mp4" type="video/mp4"></video><span class="paused-mark" aria-hidden="true"></span></div>
+            <div class="clip-time"><span class="ticks"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+          </figure>
+        <h3>Bullet time</h3>
+        <p>The input on the left is held at one moment, and GAMMA renders that moment from a moving camera on the right.</p>
+        <figure class="clip clip--pair" data-video data-clip="bt-mat" data-time="held" data-fps="10">
+            <div class="clip-head"><span>Input</span><span>GAMMA</span></div>
+            <div class="clip-stage"><video muted loop playsinline preload="none" width="920" height="368" poster="static/clips/bt-mat.webp" aria-label="Input and GAMMA, side by side: a person kneeling on a mat."><source src="static/clips/bt-mat.mp4" type="video/mp4"></video><span class="paused-mark" aria-hidden="true"></span></div>
+            <div class="clip-time"><span class="ticks"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="clip-state">Time held, camera moving</span></div>
+          </figure>
+        <h3>Depth and normals on DynamicReplica</h3>
+        <p>GAMMA's depth maps keep sharp boundaries, even around moving limbs, and its normal maps capture fine local geometry.</p>
+        <figure class="clip clip--grid" data-video data-clip="geo-1">
+            <div class="clip-head"><span>Input</span><span>RGB</span></div>
+            <div class="clip-stage"><video muted loop playsinline preload="none" width="1192" height="880" poster="static/clips/geo-1.webp" aria-label="Input, RGB, normal and depth of a dog in an office, in a two by two grid."><source src="static/clips/geo-1.mp4" type="video/mp4"></video><span class="paused-mark" aria-hidden="true"></span></div>
+            <div class="clip-foot"><span>Normal</span><span>Depth</span></div>
+          </figure>
+        <figure class="clip clip--grid" data-video data-clip="geo-2">
+            <div class="clip-head"><span>Input</span><span>RGB</span></div>
+            <div class="clip-stage"><video muted loop playsinline preload="none" width="1192" height="880" poster="static/clips/geo-2.webp" aria-label="Input, RGB, normal and depth of a person walking through a living room, in a two by two grid."><source src="static/clips/geo-2.mp4" type="video/mp4"></video><span class="paused-mark" aria-hidden="true"></span></div>
+            <div class="clip-foot"><span>Normal</span><span>Depth</span></div>
+          </figure>
+      </div>
+    </section>
+
+    <section class="sec sec--last" id="bibtex" aria-labelledby="bibtex-title">
+      <div class="col">
+        <div class="bibtex-head">
+          <h2 id="bibtex-title">BibTeX</h2>
+          <button type="button" class="copy" data-copy="#bibtex-code">Copy BibTeX</button>
+        </div>
+<pre><code id="bibtex-code">@inproceedings{zhang2026gamma,
+  title={{GAMMA}: A Feed-Forward {4D} Gaussian Reconstruction Model for Novel View Synthesis of Monocular Videos},
+  author={Zhang, Weiqi and Zhou, Junsheng and Zhang, Xuancheng and Fang, Juntong and Chen, Zequn and Di, Donglin and Liu, Yu-Shen},
+  booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
+  year={2026}
+}</code></pre>
+      </div>
+    </section>
+  </main>
+
+  <script src="static/js/gamma.js"></script>
+</body>
+</html>
